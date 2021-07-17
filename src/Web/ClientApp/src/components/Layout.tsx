@@ -1,9 +1,9 @@
 import React, { FC, ReactNode } from 'react';
-import { Container } from 'reactstrap';
+import { Container } from '@material-ui/core';
 import { NavMenu } from './NavMenu';
 
 type LayoutProps = {
-  children: ReactNode
+  children: any
 }
 
 export const Layout: FC<LayoutProps> = ({ children }): JSX.Element => {

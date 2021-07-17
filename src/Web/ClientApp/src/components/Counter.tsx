@@ -1,4 +1,5 @@
 import React, { FC, useState } from 'react';
+import { Button } from '@material-ui/core';
 
 export const Counter: FC = (): JSX.Element => {
 
@@ -15,8 +16,11 @@ export const Counter: FC = (): JSX.Element => {
       <p>This is a simple example of a React component.</p>
 
       <p aria-live="polite">Current count: <strong>{count}</strong></p>
-
-      <button className="btn btn-primary" onClick={incrementCounter}>Increment</button>
+      <Button
+        color='primary'
+        variant='contained'
+        onClick={incrementCounter}
+      >Increment</Button>
     </div>
   );
 }

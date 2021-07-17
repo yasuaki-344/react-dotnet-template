@@ -1,4 +1,7 @@
 import React, { FC, useState, useEffect } from 'react';
+import {
+  Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow,
+} from '@material-ui/core';
 
 export const FetchData: FC = (): JSX.Element => {
 
@@ -18,26 +21,28 @@ export const FetchData: FC = (): JSX.Element => {
 
   const renderForecastsTable = (forecasts: any): JSX.Element => {
     return (
-      <table className='table table-striped' aria-labelledby="tabelLabel">
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Temp. (C)</th>
-            <th>Temp. (F)</th>
-            <th>Summary</th>
-          </tr>
-        </thead>
-        <tbody>
-          {forecasts.map((forecast: any) =>
-            <tr key={forecast.date}>
-              <td>{forecast.date}</td>
-              <td>{forecast.temperatureC}</td>
-              <td>{forecast.temperatureF}</td>
-              <td>{forecast.summary}</td>
-            </tr>
-          )}
-        </tbody>
-      </table>
+      <TableContainer component={Paper}>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>Date</TableCell>
+              <TableCell>Temp. (C)</TableCell>
+              <TableCell>Temp. (F)</TableCell>
+              <TableCell>Summary</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {forecasts.map((forecast: any) =>
+              <TableRow key={forecast.date}>
+                <TableCell>{forecast.date}</TableCell>
+                <TableCell>{forecast.temperatureC}</TableCell>
+                <TableCell>{forecast.temperatureF}</TableCell>
+                <TableCell>{forecast.summary}</TableCell>
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
+      </TableContainer>
     );
   }
 
