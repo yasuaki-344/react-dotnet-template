@@ -5,6 +5,7 @@ services:
     depends_on:
       - app
     volumes:
+      - ./docker/nginx/conf.d:/etc/nginx/conf.d:ro
     ports:
       - 80:80
     networks:
