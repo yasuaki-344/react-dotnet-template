@@ -10,3 +10,8 @@ WORKDIR /source/Web
 RUN dotnet restore && \
     dotnet publish -c release -o /app --no-restore
 
+FROM mcr.microsoft.com/dotnet/aspnet:5.0-alpine
+COPY --from=build /app ./
+ENV ASPNETCORE_URLS http://*:5000
+
+ENTRYPOINT ["dotnet", "Web.dll"]
