@@ -2,11 +2,18 @@ version: '3.7'
 services:
   web:
     image: nginx:alpine
+    depends_on:
+      - app
+    volumes:
     ports:
       - 80:80
     networks:
       - frontend
     restart: always
+  app:
+    build: ./src/
+    networks:
+      - frontend
 networks:
   frontend:
     driver: bridge
