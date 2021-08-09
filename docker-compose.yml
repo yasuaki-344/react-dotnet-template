@@ -14,9 +14,19 @@ services:
     restart: always
   app:
     build: ./src/
+    depends_on:
+      - database
     networks:
       - frontend
+      - backend
+    restart: always
+  database:
+    image: postgres:alpine
+    networks:
+      - backend
     restart: always
 networks:
   frontend:
     driver: bridge
+  backend:
+    dribver: bridge
