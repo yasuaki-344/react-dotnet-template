@@ -22,6 +22,8 @@ services:
     restart: always
   database:
     image: postgres:alpine
+    environment:
+      POSTGRES_PASSWORD: password
     networks:
       - backend
     restart: always
