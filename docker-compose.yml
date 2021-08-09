@@ -29,4 +29,4 @@ networks:
   frontend:
     driver: bridge
   backend:
-    dribver: bridge
+    driver: bridge
