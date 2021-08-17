@@ -12,7 +12,7 @@ COPY ./Infrastructure/ Infrastructure/.
 COPY ./Web/ Web/.
 WORKDIR /source/Web
 RUN dotnet restore && \
-    dotnet publish -c release -o /app --no-restore
+    dotnet publish -c Release -o /app --no-restore
 
 FROM mcr.microsoft.com/dotnet/aspnet:5.0-alpine
 RUN apk add --update sudo \
