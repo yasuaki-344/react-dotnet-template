@@ -16,6 +16,8 @@ services:
     build: ./src/
     depends_on:
       - database
+    environment:
+      ConnectionStrings__DbContext: Host=database;Database=${DATABASE};Username=${DB_USERNAME};Password=${DB_PASSWORD}
     networks:
       - frontend
       - backend
