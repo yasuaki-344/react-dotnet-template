@@ -27,6 +27,7 @@ namespace Web
                     Configuration.GetConnectionString("DefaultConnection")
                 )
             );
+            services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddControllersWithViews();
 
