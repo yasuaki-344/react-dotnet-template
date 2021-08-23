@@ -14,9 +14,27 @@ services:
     restart: always
   app:
     build: ./src/
+    depends_on:
+      - database
+    environment:
+      ConnectionStrings__DbContext: Host=database;Database=${DATABASE};Username=${DB_USERNAME};Password=${DB_PASSWORD}
     networks:
       - frontend
+      - backend
+    restart: always
+  database:
+    image: postgres:alpine
+    environment:
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_DB: ${DATABASE}
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+    networks:
+      - backend
     restart: always
 networks:
   frontend:
+    driver: bridge
+  backend:
     driver: bridge
