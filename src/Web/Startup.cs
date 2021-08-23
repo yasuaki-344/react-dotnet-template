@@ -52,6 +52,7 @@ namespace Web
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseMigrationsEndPoint();
             }
             else
             {
@@ -66,6 +67,9 @@ namespace Web
 
             app.UseRouting();
 
+            app.UseAuthentication();
+            app.UseIdentityServer();
+            app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
