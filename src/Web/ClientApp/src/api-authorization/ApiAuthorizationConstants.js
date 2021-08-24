@@ -1,4 +1,4 @@
-export const ApplicationName = 'react';
+export const ApplicationName = 'Web';
 
 export const QueryParameterNames = {
   ReturnUrl: 'returnUrl',
