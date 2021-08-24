@@ -6,8 +6,8 @@ import { FetchData } from './components/FetchData';
 import { Counter } from './components/Counter';
 import { ApplicationPaths } from './api-authorization/ApiAuthorizationConstants';
 import { ApiAuthorizationRoutes } from './api-authorization/ApiAuthorizationRoutes';
+import { AuthorizeRoute } from './api-authorization/AuthorizeRoute';
 import './custom.css'
-import AuthorizeRoute from './api-authorization/AuthorizaRoute';
 
 export const App: FC = (): JSX.Element => {
   return (
