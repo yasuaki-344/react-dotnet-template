@@ -1,10 +1,10 @@
-import React, { Fragment } from 'react';
+import React, { FC, Fragment } from 'react';
 import { Route } from 'react-router';
 import { Login } from './Login'
 import { Logout } from './Logout'
 import { ApplicationPaths, LoginActions, LogoutActions } from './ApiAuthorizationConstants';
 
-export const ApiAuthorizationRoutes = () => {
+export const ApiAuthorizationRoutes: FC = (): JSX.Element => {
   return (
     <Fragment>
       <Route path={ApplicationPaths.Login} render={() => loginAction(LoginActions.Login)} />
@@ -19,5 +19,5 @@ export const ApiAuthorizationRoutes = () => {
   );
 }
 
-const loginAction = (name) => (<Login action={name}></Login>);
-const logoutAction = (name) => (<Logout action={name}></Logout>);
+const loginAction = (name: string) => (<Login action={name}></Login>);
+const logoutAction = (name: string) => (<Logout action={name}></Logout>);
