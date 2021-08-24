@@ -1,68 +1,56 @@
-import React, { Component, Fragment } from 'react';
+import React, { useState, useEffect, useRef, Fragment } from 'react';
 import { ListItem } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import authService from './AuthorizeService';
 import { ApplicationPaths } from './ApiAuthorizationConstants';
 
-export class LoginMenu extends Component {
-  constructor(props) {
-    super(props);
+export const LoginMenu = (props) => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [userName, setUserName] = useState(null);
+  let _subscription = authService.subscribe(() => populateState());
 
-    this.state = {
-      isAuthenticated: false,
-      userName: null
-    };
-  }
-
-  componentDidMount() {
-    this._subscription = authService.subscribe(() => this.populateState());
-    this.populateState();
-  }
-
-  componentWillUnmount() {
-    authService.unsubscribe(this._subscription);
-  }
-
-  async populateState() {
-    const [isAuthenticated, user] = await Promise.all([authService.isAuthenticated(), authService.getUser()])
-    this.setState({
-      isAuthenticated,
-      userName: user && user.name
-    });
-  }
-
-  render() {
-    const { isAuthenticated, userName } = this.state;
-    if (!isAuthenticated) {
-      const registerPath = `${ApplicationPaths.Register}`;
-      const loginPath = `${ApplicationPaths.Login}`;
-      return this.anonymousView(registerPath, loginPath);
-    } else {
-      const profilePath = `${ApplicationPaths.Profile}`;
-      const logoutPath = { pathname: `${ApplicationPaths.LogOut}`, state: { local: true } };
-      return this.authenticatedView(userName, profilePath, logoutPath);
+  useEffect(() => {
+    populateState();
+    return () => {
+      authService.unsubscribe(_subscription);
     }
+  }, [])
+
+  const populateState = async () => {
+    const [authenticated, user] = await Promise.all([authService.isAuthenticated(), authService.getUser()])
+    setIsAuthenticated(authenticated);
+    setUserName(user && user.name);
   }
 
-  authenticatedView(userName, profilePath, logoutPath) {
-    return (<Fragment>
+  const authenticatedView = (userName, profilePath, logoutPath) => (
+    <Fragment>
       <ListItem button>
         <Link to={profilePath}>ようこそ {userName}</Link>
       </ListItem>
       <ListItem button>
         <Link to={logoutPath}>ログアウト</Link>
       </ListItem>
-    </Fragment>);
-  }
+    </Fragment>
+  );
 
-  anonymousView(registerPath, loginPath) {
-    return (<Fragment>
+  const anonymousView = (registerPath, loginPath) => (
+    <Fragment>
       <ListItem button>
         <Link to={registerPath}>登録</Link>
       </ListItem>
       <ListItem button>
         <Link to={loginPath}>ログイン</Link>
       </ListItem>
-    </Fragment>);
+    </Fragment>
+  );
+
+  if (!isAuthenticated) {
+    const registerPath = `${ApplicationPaths.Register}`;
+    const loginPath = `${ApplicationPaths.Login}`;
+    return anonymousView(registerPath, loginPath);
+  } else {
+    const profilePath = `${ApplicationPaths.Profile}`;
+    const logoutPath = { pathname: `${ApplicationPaths.LogOut}`, state: { local: true } };
+    return authenticatedView(userName, profilePath, logoutPath);
   }
 }
