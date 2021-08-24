@@ -37,7 +37,7 @@ export const NavMenu: FC = (): JSX.Element => {
           </IconButton>
           <Typography variant='h6' noWrap color='inherit'>
             <Link className={classes.textWhite} to='/' color='primary'>
-              Inspection Manager
+              Template
             </Link>
           </Typography>
           <SwipeableDrawer
