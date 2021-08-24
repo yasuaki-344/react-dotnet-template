@@ -2,6 +2,7 @@ import React, { FC, useState, useEffect } from 'react';
 import {
   Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow,
 } from '@material-ui/core';
+import authService from '../api-authorization/AuthorizeService';
 
 export const FetchData: FC = (): JSX.Element => {
 
@@ -13,7 +14,10 @@ export const FetchData: FC = (): JSX.Element => {
   }, []);
 
   const populateWeatherData = async () => {
-    const response = await fetch('weatherforecast');
+    const token = await authService.getAccessToken();
+    const response = await fetch('weatherforecast', {
+      headers: !token ? {} : { 'Authorization': `Bearer ${token}` }
+    });
     const data = await response.json();
     setLoading(false);
     setForecasts(data);
