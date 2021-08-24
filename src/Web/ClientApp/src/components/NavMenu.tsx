@@ -7,6 +7,7 @@ import {
 import MenuIcon from '@material-ui/icons/Menu';
 import { Link } from 'react-router-dom';
 import './NavMenu.css';
+import { LoginMenu } from '../api-authorization/LoginMenu';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -61,6 +62,8 @@ export const NavMenu: FC = (): JSX.Element => {
                   <Link className={classes.textDark} to='/fetch-data'>Fetch data</Link>
                 </ListItem>
               </List>
+              <LoginMenu>
+              </LoginMenu>
             </div>
           </SwipeableDrawer>
         </Toolbar>
