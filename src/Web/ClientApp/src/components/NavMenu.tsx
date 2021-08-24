@@ -61,9 +61,9 @@ export const NavMenu: FC = (): JSX.Element => {
                 <ListItem button>
                   <Link className={classes.textDark} to='/fetch-data'>Fetch data</Link>
                 </ListItem>
+                <LoginMenu>
+                </LoginMenu>
               </List>
-              <LoginMenu>
-              </LoginMenu>
             </div>
           </SwipeableDrawer>
         </Toolbar>

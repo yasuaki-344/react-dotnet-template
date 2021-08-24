@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { NavItem, NavLink } from 'reactstrap';
+import { ListItem } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import authService from './AuthorizeService';
 import { ApplicationPaths } from './ApiAuthorizationConstants';
@@ -46,24 +46,23 @@ export class LoginMenu extends Component {
 
   authenticatedView(userName, profilePath, logoutPath) {
     return (<Fragment>
-      <NavItem>
-        <NavLink tag={Link} className="text-dark" to={profilePath}>Hello {userName}</NavLink>
-      </NavItem>
-      <NavItem>
-        <NavLink tag={Link} className="text-dark" to={logoutPath}>Logout</NavLink>
-      </NavItem>
+      <ListItem button>
+        <Link to={profilePath}>ようこそ {userName}</Link>
+      </ListItem>
+      <ListItem button>
+        <Link to={logoutPath}>ログアウト</Link>
+      </ListItem>
     </Fragment>);
-
   }
 
   anonymousView(registerPath, loginPath) {
     return (<Fragment>
-      <NavItem>
-        <NavLink tag={Link} className="text-dark" to={registerPath}>Register</NavLink>
-      </NavItem>
-      <NavItem>
-        <NavLink tag={Link} className="text-dark" to={loginPath}>Login</NavLink>
-      </NavItem>
+      <ListItem button>
+        <Link to={registerPath}>登録</Link>
+      </ListItem>
+      <ListItem button>
+        <Link to={loginPath}>ログイン</Link>
+      </ListItem>
     </Fragment>);
   }
 }
