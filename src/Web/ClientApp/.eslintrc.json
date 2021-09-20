@@ -32,5 +32,8 @@
         ]
       }
     ]
+  },
+  "globals": {
+    "JSX": true
   }
 }
