@@ -10,15 +10,15 @@ import { AuthorizeRoute } from "./api-authorization/AuthorizeRoute";
 import "./custom.css";
 
 export const App: FC = (): JSX.Element => (
-    <Layout>
-      <Route exact path="/" component={Home} />
-      <Route path="/counter" component={Counter} />
-      <AuthorizeRoute path="/fetch-data" component={FetchData} />
-      <Route
-        path={ApplicationPaths.ApiAuthorizationPrefix}
-        component={ApiAuthorizationRoutes}
-      />
-    </Layout>
-  );
+  <Layout>
+    <Route exact path="/" component={Home} />
+    <Route path="/counter" component={Counter} />
+    <AuthorizeRoute path="/fetch-data" component={FetchData} />
+    <Route
+      path={ApplicationPaths.ApiAuthorizationPrefix}
+      component={ApiAuthorizationRoutes}
+    />
+  </Layout>
+);
 
 App.displayName = App.name;

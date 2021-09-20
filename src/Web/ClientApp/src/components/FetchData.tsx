@@ -29,29 +29,29 @@ export const FetchData: FC = (): JSX.Element => {
   };
 
   const renderForecastsTable = (data: any): JSX.Element => (
-      <TableContainer component={Paper}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>Date</TableCell>
-              <TableCell>Temp. (C)</TableCell>
-              <TableCell>Temp. (F)</TableCell>
-              <TableCell>Summary</TableCell>
+    <TableContainer component={Paper}>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell>Date</TableCell>
+            <TableCell>Temp. (C)</TableCell>
+            <TableCell>Temp. (F)</TableCell>
+            <TableCell>Summary</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {data.map((forecast: any) => (
+            <TableRow key={forecast.date}>
+              <TableCell>{forecast.date}</TableCell>
+              <TableCell>{forecast.temperatureC}</TableCell>
+              <TableCell>{forecast.temperatureF}</TableCell>
+              <TableCell>{forecast.summary}</TableCell>
             </TableRow>
-          </TableHead>
-          <TableBody>
-            {data.map((forecast: any) => (
-              <TableRow key={forecast.date}>
-                <TableCell>{forecast.date}</TableCell>
-                <TableCell>{forecast.temperatureC}</TableCell>
-                <TableCell>{forecast.temperatureF}</TableCell>
-                <TableCell>{forecast.summary}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    );
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
+  );
 
   const contents = loading ? (
     <p>

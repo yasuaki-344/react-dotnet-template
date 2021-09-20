@@ -7,9 +7,9 @@ type LayoutProps = {
 };
 
 export const Layout: FC<LayoutProps> = ({ children }): JSX.Element => (
-    <div>
-      <NavMenu />
-      <Container>{children}</Container>
-    </div>
-  );
+  <div>
+    <NavMenu />
+    <Container>{children}</Container>
+  </div>
+);
 Layout.displayName = Layout.name;
