@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useRef, Fragment } from 'react';
-import { ListItem } from '@material-ui/core';
-import { Link } from 'react-router-dom';
-import authService from './AuthorizeService';
-import { ApplicationPaths } from './ApiAuthorizationConstants';
+import React, { useState, useEffect, useRef, Fragment } from "react";
+import { ListItem } from "@material-ui/core";
+import { Link } from "react-router-dom";
+import authService from "./AuthorizeService";
+import { ApplicationPaths } from "./ApiAuthorizationConstants";
 
 export const LoginMenu = (props) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -13,14 +13,17 @@ export const LoginMenu = (props) => {
     populateState();
     return () => {
       authService.unsubscribe(_subscription);
-    }
-  }, [])
+    };
+  }, []);
 
   const populateState = async () => {
-    const [authenticated, user] = await Promise.all([authService.isAuthenticated(), authService.getUser()])
+    const [authenticated, user] = await Promise.all([
+      authService.isAuthenticated(),
+      authService.getUser(),
+    ]);
     setIsAuthenticated(authenticated);
     setUserName(user && user.name);
-  }
+  };
 
   const authenticatedView = (userName, profilePath, logoutPath) => (
     <Fragment>
@@ -50,7 +53,10 @@ export const LoginMenu = (props) => {
     return anonymousView(registerPath, loginPath);
   } else {
     const profilePath = `${ApplicationPaths.Profile}`;
-    const logoutPath = { pathname: `${ApplicationPaths.LogOut}`, state: { local: true } };
+    const logoutPath = {
+      pathname: `${ApplicationPaths.LogOut}`,
+      state: { local: true },
+    };
     return authenticatedView(userName, profilePath, logoutPath);
   }
-}
+};
