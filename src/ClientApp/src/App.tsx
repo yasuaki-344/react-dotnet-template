@@ -3,6 +3,13 @@ import logo from './logo.svg';
 import './App.css';
 
 function App() {
+  const onClick = async () => {
+    console.log("clicked");
+    const response = await fetch("http://localhost:5000/weatherforecast");
+    const data = await response.json();
+    console.log(data);
+  }
+
   return (
     <div className="App">
       <header className="App-header">
@@ -18,6 +25,9 @@ function App() {
         >
           Learn React
         </a>
+        <button onClick={onClick}>
+          fetch test
+        </button>
       </header>
     </div>
   );
