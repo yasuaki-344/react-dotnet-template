@@ -1,6 +1,6 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import logo from "./logo.svg";
+import "./App.css";
 
 function App() {
   const onClick = async () => {
@@ -8,7 +8,7 @@ function App() {
     const response = await fetch("http://localhost:5000/weatherforecast");
     const data = await response.json();
     console.log(data);
-  }
+  };
 
   return (
     <div className="App">
@@ -25,9 +25,7 @@ function App() {
         >
           Learn React
         </a>
-        <button onClick={onClick}>
-          fetch test
-        </button>
+        <button onClick={onClick}>fetch test</button>
       </header>
     </div>
   );
