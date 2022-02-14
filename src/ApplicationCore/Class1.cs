@@ -1,8 +1,7 @@
-﻿using System;
-
-namespace ApplicationCore
+﻿namespace ApplicationCore
 {
     public class Class1
     {
+
     }
 }
