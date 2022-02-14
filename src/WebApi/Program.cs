@@ -28,18 +28,6 @@ var builder = WebApplication.CreateBuilder(args);
             );
         });
     }
-    else if (builder.Environment.IsProduction())
-    {
-        builder.Services.AddCors(options =>
-        {
-            options.AddDefaultPolicy(builder =>
-                builder
-                    .AllowAnyMethod()
-                    .AllowAnyHeader()
-                    .AllowAnyOrigin()
-            );
-        });
-    }
 }
 
 var app = builder.Build();
