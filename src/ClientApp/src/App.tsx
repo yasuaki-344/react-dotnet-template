@@ -6,7 +6,6 @@ function App() {
   const onClick = async () => {
     console.log("clicked");
     const response = await fetch("/v1/weatherforecast");
-    // const response = await fetch("http://localhost:5000/weatherforecast");
     const data = await response.json();
     console.log(data);
   };
