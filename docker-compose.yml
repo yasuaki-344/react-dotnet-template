@@ -1,18 +1,16 @@
 version: '3.7'
 services:
-  web:
-    image: nginx:alpine
-    depends_on:
-      - app
+  react:
+    build: ./src/ClientApp/
+    ports:
+      - 80:80
     volumes:
       - ./docker/nginx/conf.d:/etc/nginx/conf.d:ro
       - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
-    ports:
-      - 80:80
     networks:
       - frontend
     restart: always
-  app:
+  webapi:
     build: ./src/
     depends_on:
       - database
@@ -23,7 +21,7 @@ services:
       - backend
     restart: always
   database:
-    image: postgres:alpine
+    image: postgres:13-alpine
     environment:
       POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_USER: ${DB_USERNAME}

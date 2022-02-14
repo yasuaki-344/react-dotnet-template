@@ -1,0 +1,4 @@
+.dockerignore
+**/bin/
+**/obj/
+**/node_modules/
