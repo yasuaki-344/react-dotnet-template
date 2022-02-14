@@ -9,13 +9,30 @@ services:
       - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
     networks:
       - frontend
+    restart: always
   webapi:
     build: ./src/
+    depends_on:
+      - database
+    environment:
+      ConnectionStrings__DbContext: Host=database;Database=${DATABASE};Username=${DB_USERNAME};Password=${DB_PASSWORD}
     networks:
       - frontend
-    ports:
-      - 5000:5000
+      - backend
+    restart: always
+  database:
+    image: postgres:13-alpine
+    environment:
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_DB: ${DATABASE}
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+    networks:
+      - backend
     restart: always
 networks:
   frontend:
+    driver: bridge
+  backend:
     driver: bridge
