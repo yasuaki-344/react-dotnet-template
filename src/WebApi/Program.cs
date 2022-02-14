@@ -18,9 +18,25 @@ var builder = WebApplication.CreateBuilder(args);
         builder.Services.AddCors(options =>
         {
             options.AddDefaultPolicy(builder =>
-                builder.AllowAnyMethod()
-                .AllowAnyHeader()
-                .WithOrigins(new[] { "http://localhost:3000" })
+                builder
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .WithOrigins(new[]
+                        {
+                            "http://localhost:3000",
+                        })
+            );
+        });
+    }
+    else if (builder.Environment.IsProduction())
+    {
+        builder.Services.AddCors(options =>
+        {
+            options.AddDefaultPolicy(builder =>
+                builder
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowAnyOrigin()
             );
         });
     }
