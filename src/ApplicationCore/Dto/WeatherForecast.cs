@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace WebApi
+namespace ApplicationCore.Dto
 {
     public class WeatherForecast
     {
