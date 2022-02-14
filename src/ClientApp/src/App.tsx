@@ -25,7 +25,7 @@ function App() {
         >
           Learn React
         </a>
-        <button onClick={onClick}>fetch test</button>
+        <button type="button" onClick={onClick}>fetch test</button>
       </header>
     </div>
   );

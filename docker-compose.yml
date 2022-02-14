@@ -1,5 +1,11 @@
 version: '3.7'
 services:
+  react:
+    build: ./src/ClientApp/
+    ports:
+      - 80:80
+    networks:
+      - frontend
   webapi:
     build: ./src/
     networks:
