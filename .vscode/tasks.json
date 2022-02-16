@@ -74,7 +74,7 @@
       "id": "terminate",
       "type": "command",
       "command": "workbench.action.tasks.terminate",
-      "args": "react-start"
+      "args": "npm: start - src/ClientApp"
     }
   ]
 }
