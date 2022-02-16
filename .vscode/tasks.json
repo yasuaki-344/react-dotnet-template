@@ -61,6 +61,20 @@
       ],
       "label": "npm: start - src/ClientApp",
       "detail": "rimraf ./build && react-scripts start"
+    },
+    {
+      "label": "terminate src/ClientApp",
+      "command": "${input:terminate}",
+      "type": "shell",
+      "problemMatcher": []
+    }
+  ],
+  "inputs": [
+    {
+      "id": "terminate",
+      "type": "command",
+      "command": "workbench.action.tasks.terminate",
+      "args": "react-start"
     }
   ]
 }
