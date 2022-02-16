@@ -36,6 +36,45 @@
         "${workspaceFolder}/src/WebApi/WebApi.csproj"
       ],
       "problemMatcher": "$msCompile"
+    },
+    {
+      "type": "npm",
+      "script": "start",
+      "path": "src/ClientApp/",
+      "isBackground": true,
+      "problemMatcher": [
+        {
+          "pattern": [
+            {
+              "regexp": ".",
+              "file": 1,
+              "line": 1,
+              "message": 1
+            }
+          ],
+          "background": {
+            "activeOnStart": true,
+            "beginsPattern": "^Starting.*$",
+            "endsPattern": "^Compiled.*$"
+          }
+        }
+      ],
+      "label": "npm: start - src/ClientApp",
+      "detail": "rimraf ./build && react-scripts start"
+    },
+    {
+      "label": "terminate src/ClientApp",
+      "command": "${input:terminate}",
+      "type": "shell",
+      "problemMatcher": []
+    }
+  ],
+  "inputs": [
+    {
+      "id": "terminate",
+      "type": "command",
+      "command": "workbench.action.tasks.terminate",
+      "args": "npm: start - src/ClientApp"
     }
   ]
 }
