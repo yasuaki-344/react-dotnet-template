@@ -1,0 +1,10 @@
+{
+  "recommendations": [
+    "ms-dotnettools.csharp",
+    "k--kato.docomment",
+    "streetsidesoftware.code-spell-checker",
+    "editorconfig.editorconf",
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode"
+  ]
+}
