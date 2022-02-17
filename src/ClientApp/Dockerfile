@@ -4,8 +4,7 @@ FROM node:16-alpine3.14 AS build
 WORKDIR /app
 COPY package.json ./
 COPY package-lock.json ./
-RUN npm i -g npm@8.5.0 \
-    && npm i
+RUN npm i
 
 COPY . ./
 RUN npm run build
