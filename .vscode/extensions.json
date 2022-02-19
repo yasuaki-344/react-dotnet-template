@@ -3,7 +3,7 @@
     "ms-dotnettools.csharp",
     "k--kato.docomment",
     "streetsidesoftware.code-spell-checker",
-    "editorconfig.editorconf",
+    "editorconfig.editorconfig",
     "dbaeumer.vscode-eslint",
     "esbenp.prettier-vscode"
   ]
