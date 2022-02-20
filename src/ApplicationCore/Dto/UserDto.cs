@@ -10,7 +10,7 @@ namespace ApplicationCore.Dto
     {
         [Required]
         [JsonPropertyName("id")]
-        public Guid id { get; set; } = new Guid();
+        public Guid Id { get; set; } = new Guid();
 
         [Required]
         [EmailAddress]
