@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.IO;
 using System.Reflection;
 using Microsoft.AspNetCore.Builder;
@@ -45,6 +46,11 @@ var builder = WebApplication.CreateBuilder(args);
                 Name = "Example License",
                 Url = new Uri("https://example.com/license")
             }
+        });
+        options.CustomSchemaIds(x =>
+        {
+            var attr = x.GetCustomAttribute<DisplayNameAttribute>();
+            return (attr is not null) ? attr.DisplayName : x.Name;
         });
         var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
         options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
