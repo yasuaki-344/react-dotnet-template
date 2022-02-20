@@ -13,7 +13,6 @@ namespace ApplicationCore.Dto
         public Guid Id { get; set; } = new Guid();
 
         [Required]
-        [EmailAddress]
         [JsonPropertyName("user_name")]
         public string UserName { get; set; } = string.Empty;
 
