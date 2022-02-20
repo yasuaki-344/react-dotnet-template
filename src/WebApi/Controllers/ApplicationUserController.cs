@@ -23,7 +23,6 @@ namespace WebApi.Controllers
         private readonly RoleManager<ApplicationRole> _roleManager;
         private readonly ILogger<ApplicationUserController> _logger;
 
-
         /// <summary>
         /// Initializes a new instance of ApplicationUserController class.
         /// </summary>

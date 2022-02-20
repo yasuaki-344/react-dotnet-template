@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using ApplicationCore.Models;
+﻿using ApplicationCore.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
