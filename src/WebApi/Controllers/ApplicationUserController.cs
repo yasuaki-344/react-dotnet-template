@@ -70,5 +70,70 @@ namespace WebApi.Controllers
                 );
             }
         }
+
+        /// <summary>
+        /// Gets users which belong to the specified role.
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns>Created user data</returns>
+        /// <response code="201">Returns created user</response>
+        /// <response code="500">Internal server error</response>
+        [HttpPost]
+        [MapToApiVersion("1")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> CreateUserAsync([Required][FromBody] UserDto dto)
+        {
+            try
+            {
+                var user = new ApplicationUser
+                {
+                    UserName = dto.Email,
+                    Email = dto.Email,
+                };
+                await _userManager.CreateAsync(user);
+                return CreatedAtAction(
+                    nameof(GetUserByIdAsync),
+                    new { id = user.Id }, user
+                );
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                return StatusCode(
+                    StatusCodes.Status500InternalServerError,
+                    "Error retrieving data from the database"
+                );
+            }
+        }
+
+        /// <summary>
+        /// Gets user by using user ID.
+        /// </summary>
+        /// <param name="id">User ID to get</param>
+        /// <returns>User information</returns>
+        /// <response code="200">Returns user</response>
+        /// <response code="500">Internal server error</response>
+        [HttpGet]
+        [MapToApiVersion("1")]
+        [Route("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetUserByIdAsync([Required][FromRoute] string id)
+        {
+            try
+            {
+                var user = await _userManager.FindByIdAsync(id);
+                return Ok(user);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                return StatusCode(
+                    StatusCodes.Status500InternalServerError,
+                    "Error retrieving data from the database"
+                );
+            }
+        }
     }
 }
