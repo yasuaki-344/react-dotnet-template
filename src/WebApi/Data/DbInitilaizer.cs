@@ -20,9 +20,9 @@ namespace WebApi.Data
                     if (!context.Roles.Any())
                     {
                         context.Roles.AddRange(
-                            new ApplicationRole { Name = "admin" },
-                            new ApplicationRole { Name = "owner" },
-                            new ApplicationRole { Name = "user" }
+                            new ApplicationRole { Name = "admin", NormalizedName = "ADMIN" },
+                            new ApplicationRole { Name = "owner", NormalizedName = "OWNER" },
+                            new ApplicationRole { Name = "user", NormalizedName = "USER" }
                         );
                         context.SaveChanges();
                     }

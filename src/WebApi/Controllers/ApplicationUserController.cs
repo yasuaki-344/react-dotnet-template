@@ -77,10 +77,12 @@ namespace WebApi.Controllers
         /// <param name="dto"></param>
         /// <returns>Created user data</returns>
         /// <response code="201">Returns created user</response>
+        /// <response code="400">Failed to create user</response>
         /// <response code="500">Internal server error</response>
         [HttpPost]
         [MapToApiVersion("1")]
         [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> CreateUserAsync([Required][FromBody] UserDto dto)
         {
@@ -91,11 +93,19 @@ namespace WebApi.Controllers
                     UserName = dto.Email,
                     Email = dto.Email,
                 };
-                await _userManager.CreateAsync(user);
-                return CreatedAtAction(
-                    nameof(GetUserByIdAsync),
-                    new { id = user.Id }, user
-                );
+                var result = await _userManager.CreateAsync(user);
+                if (result.Succeeded)
+                {
+                    await _userManager.AddToRoleAsync(user, "admin");
+                    return CreatedAtAction(
+                        nameof(GetUserByIdAsync),
+                        new { id = user.Id }, user
+                    );
+                }
+                else
+                {
+                    return BadRequest();
+                }
             }
             catch (Exception ex)
             {
@@ -113,18 +123,27 @@ namespace WebApi.Controllers
         /// <param name="id">User ID to get</param>
         /// <returns>User information</returns>
         /// <response code="200">Returns user</response>
+        /// <response code="404">The specified user is not found</response>
         /// <response code="500">Internal server error</response>
-        [HttpGet]
+        [HttpGet("{id}")]
+        [ActionName(nameof(GetUserByIdAsync))]
         [MapToApiVersion("1")]
-        [Route("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> GetUserByIdAsync([Required][FromRoute] string id)
+        public async Task<IActionResult> GetUserByIdAsync([Required][FromRoute] string? id)
         {
             try
             {
-                var user = await _userManager.FindByIdAsync(id);
-                return Ok(user);
+                if (string.IsNullOrEmpty(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    var user = await _userManager.FindByIdAsync(id);
+                    return Ok(user);
+                }
             }
             catch (Exception ex)
             {
