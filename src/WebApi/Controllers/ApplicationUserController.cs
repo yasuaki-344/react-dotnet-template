@@ -135,5 +135,52 @@ namespace WebApi.Controllers
                 );
             }
         }
+
+        /// <summary>
+        /// Deletes user by using user ID.
+        /// </summary>
+        /// <param name="id">User ID to delete</param>
+        /// <response code="204">The specified user is deleted</response>
+        /// <response code="400">User data is not found</response>
+        /// <response code="404">Bad request</response>
+        /// <response code="500">Internal server error</response>
+        [HttpDelete]
+        [MapToApiVersion("1")]
+        [Route("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> DeleteUserAsync([Required][FromRoute] string id)
+        {
+            try
+            {
+                var user = await _userManager.FindByIdAsync(id);
+                if (user is null)
+                {
+                    return NotFound($"Not found specified user ID: {id}");
+                }
+                else
+                {
+                    var result = await _userManager.DeleteAsync(user);
+                    if (result.Succeeded)
+                    {
+                        return NoContent();
+                    }
+                    else
+                    {
+                        return BadRequest(result.Errors.First().ToString());
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                return StatusCode(
+                    StatusCodes.Status500InternalServerError,
+                    "Error retrieving data from the database"
+                );
+            }
+        }
     }
 }
