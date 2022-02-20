@@ -1,6 +1,8 @@
 using System;
+using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using WebApi.Models;
 
 namespace WebApi.Data
 {
@@ -13,6 +15,18 @@ namespace WebApi.Data
             ))
             {
                 context.Database.EnsureCreated();
+                if (context.Roles is not null)
+                {
+                    if (!context.Roles.Any())
+                    {
+                        context.Roles.AddRange(
+                            new ApplicationRole { Name = "admin" },
+                            new ApplicationRole { Name = "owner" },
+                            new ApplicationRole { Name = "user" }
+                        );
+                        context.SaveChanges();
+                    }
+                }
             }
         }
     }
