@@ -68,6 +68,13 @@ var app = builder.Build();
     app.UseAuthorization();
 
     app.MapControllers();
+
+    // Database initialization process
+    using (var scope = app.Services.CreateScope())
+    {
+        var services = scope.ServiceProvider;
+        DbInitializer.Seed(services);
+    }
 }
 
 app.Run();
