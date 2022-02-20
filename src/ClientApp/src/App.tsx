@@ -4,7 +4,6 @@ import "./App.css";
 
 function App() {
   const onClick = async () => {
-    console.log("clicked");
     const response = await fetch("/v1/weatherforecast");
     const data = await response.json();
     console.log(data);
