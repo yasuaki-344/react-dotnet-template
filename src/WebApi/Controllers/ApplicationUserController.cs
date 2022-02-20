@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Identity;
-using ApplicationCore.Models;
+using ApplicationCore.Entities;
 
 namespace WebApi.Controllers
 {
