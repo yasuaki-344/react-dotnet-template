@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.ComponentModel.DataAnnotations;
 using System.Net.Mime;
@@ -8,9 +7,8 @@ using ApplicationCore.Dto;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
-using WebApi.Models;
+using ApplicationCore.Models;
 
 namespace WebApi.Controllers
 {

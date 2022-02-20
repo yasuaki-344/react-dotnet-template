@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace WebApi.Data.Migrations
+namespace Infrastructure.Migrations
 {
     public partial class CreateIdentitySchema : Migration
     {

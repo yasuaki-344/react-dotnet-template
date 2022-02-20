@@ -1,10 +1,10 @@
-using System;
+﻿using System;
 using System.Linq;
+using ApplicationCore.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using WebApi.Models;
 
-namespace WebApi.Data
+namespace Infrastructure.Data
 {
     public static class DbInitializer
     {

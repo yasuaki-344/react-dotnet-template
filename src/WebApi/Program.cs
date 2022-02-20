@@ -9,8 +9,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
-using WebApi.Data;
-using WebApi.Models;
+using Infrastructure.Data;
+using ApplicationCore.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 {
