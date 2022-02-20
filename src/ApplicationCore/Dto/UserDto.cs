@@ -20,5 +20,9 @@ namespace ApplicationCore.Dto
         [EmailAddress]
         [JsonPropertyName("email")]
         public string Email { get; set; } = string.Empty;
+
+        [Required]
+        [JsonPropertyName("role")]
+        public string Role { get; set; } = string.Empty;
     }
 }

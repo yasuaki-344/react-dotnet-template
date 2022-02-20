@@ -22,7 +22,6 @@ namespace WebApi.Controllers
     public class ApplicationUserController : ControllerBase
     {
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly RoleManager<ApplicationRole> _roleManager;
         private readonly IMapper _mapper;
         private readonly ILogger<ApplicationUserController> _logger;
 
@@ -41,7 +40,6 @@ namespace WebApi.Controllers
         )
         {
             _userManager = userManager;
-            _roleManager = roleManager;
             _mapper = mapper;
             _logger = logger;
         }
@@ -62,7 +60,12 @@ namespace WebApi.Controllers
             try
             {
                 var users = await _userManager.GetUsersInRoleAsync(role);
-                var userDto = _mapper.Map<IList<ApplicationUser>, IEnumerable<UserDto>>(users);
+                var userDto = await Task.WhenAll(users.Select(async (x) => {
+                    var dto = _mapper.Map<UserDto>(x);
+                    var roles = await _userManager.GetRolesAsync(x);
+                    dto.Role = roles.First() ?? string.Empty;
+                    return dto;
+                }));
                 return Ok(userDto);
             }
             catch (Exception ex)
@@ -100,8 +103,9 @@ namespace WebApi.Controllers
                 var result = await _userManager.CreateAsync(user);
                 if (result.Succeeded)
                 {
-                    await _userManager.AddToRoleAsync(user, "admin");
+                    await _userManager.AddToRoleAsync(user, dto.Role);
                     var userDto = _mapper.Map<UserDto>(user);
+                    userDto.Role = dto.Role;
                     return CreatedAtAction(
                         nameof(GetUserByIdAsync),
                         new { id = userDto.Id }, userDto
@@ -156,6 +160,8 @@ namespace WebApi.Controllers
                     else
                     {
                         var dto = _mapper.Map<UserDto>(user);
+                        var roles = await _userManager.GetRolesAsync(user);
+                        dto.Role = roles.First() ?? string.Empty;
                         return Ok(dto);
                     }
                 }
@@ -198,10 +204,19 @@ namespace WebApi.Controllers
                 }
                 else
                 {
+                    user.UserName = dto.UserName;
+                    user.Email = dto.Email;
+
                     var result = await _userManager.UpdateAsync(user);
                     if (result.Succeeded)
                     {
+                        var roles = await _userManager.GetRolesAsync(user);
+                        await _userManager.RemoveFromRolesAsync(user, roles);
+                        await _userManager.AddToRoleAsync(user, dto.Role);
+
                         var userDto = _mapper.Map<UserDto>(user);
+                        var newRoles = await _userManager.GetRolesAsync(user);
+                        userDto.Role = newRoles.First() ?? string.Empty;
                         return CreatedAtAction(
                             nameof(GetUserByIdAsync),
                             new { id = userDto.Id }, userDto
