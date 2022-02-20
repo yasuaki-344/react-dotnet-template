@@ -14,7 +14,9 @@ using WebApi.Models;
 
 namespace WebApi.Controllers
 {
+    [ApiVersion("1")]
     [ApiController]
+    [Route("api/v{version:apiVersion}/users")]
     [Consumes(MediaTypeNames.Application.Json)]
     [Produces(MediaTypeNames.Application.Json)]
     public class ApplicationUserController : ControllerBase
@@ -49,7 +51,7 @@ namespace WebApi.Controllers
         /// <response code="200">Returns user list</response>
         /// <response code="500">Internal server error</response>
         [HttpGet]
-        [Route("/v1/users")]
+        [MapToApiVersion("1")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetAllUsersAsync([Required][FromQuery] string role)
