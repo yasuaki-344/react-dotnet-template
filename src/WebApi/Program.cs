@@ -2,6 +2,9 @@
 using System.ComponentModel;
 using System.IO;
 using System.Reflection;
+using ApplicationCore.Entities;
+using ApplicationCore.Services;
+using Infrastructure.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -9,9 +12,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using ApplicationCore.Entities;
-using ApplicationCore.Services;
-using Infrastructure.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 {

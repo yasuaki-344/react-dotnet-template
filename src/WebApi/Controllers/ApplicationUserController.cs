@@ -1,16 +1,16 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Net.Mime;
 using System.Threading.Tasks;
-using AutoMapper;
 using ApplicationCore.Dto;
+using ApplicationCore.Entities;
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Microsoft.AspNetCore.Identity;
-using ApplicationCore.Entities;
 
 namespace WebApi.Controllers
 {
@@ -60,7 +60,8 @@ namespace WebApi.Controllers
             try
             {
                 var users = await _userManager.GetUsersInRoleAsync(role);
-                var userDto = await Task.WhenAll(users.Select(async (x) => {
+                var userDto = await Task.WhenAll(users.Select(async (x) =>
+                {
                     var dto = _mapper.Map<UserDto>(x);
                     var roles = await _userManager.GetRolesAsync(x);
                     dto.Role = roles.First() ?? string.Empty;
@@ -98,7 +99,7 @@ namespace WebApi.Controllers
                 var user = new ApplicationUser
                 {
                     UserName = dto.UserName,
-                    Email = dto.Email,
+                    Email = dto.Email
                 };
                 var result = await _userManager.CreateAsync(user);
                 if (result.Succeeded)
