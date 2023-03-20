@@ -11,7 +11,7 @@ namespace ApplicationCore.Services
         /// </summary>
         public AutoMapping()
         {
-            CreateMap<ApplicationUser, UserDto>();
+            CreateMap<WeatherForecast, WeatherForecastDto>();
         }
     }
 }
