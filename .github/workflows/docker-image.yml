@@ -2,7 +2,7 @@ name: Docker Image CI
 
 on:
   workflow_run:
-    workflows: [dotnet]
+    workflows: ["Build and test Web API application"]
     types:
       - completed
 
