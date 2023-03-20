@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mime;
 using ApplicationCore.Dto;
+using ApplicationCore.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using ApplicationCore.Interfaces;
 
 namespace WebApi.Controllers;
 
