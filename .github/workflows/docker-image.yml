@@ -1,0 +1,36 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2
+    - name: Build Web API image
+      uses: docker/build-push-action@v4
+      with:
+        context: .
+        file: ./docker/web-api
+        push: false
+        tags: web-api:latest
+        cache-from: type=gha,scope=web-api
+        cache-to: type=gha,mode=max,scope=web-api
+    - name: Build client app image
+      uses: docker/build-push-action@v4
+      with:
+        context: .
+        file: ./docker/client-app
+        push: false
+        tags: client-app:latest
+        cache-from: type=gha,scope=client-app
+        cache-to: type=gha,mode=max,scope=client-app
