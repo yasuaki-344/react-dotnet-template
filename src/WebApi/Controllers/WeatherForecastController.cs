@@ -6,6 +6,7 @@ using ApplicationCore.Dto;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using ApplicationCore.Interfaces;
 
 namespace WebApi.Controllers;
 
@@ -16,16 +17,22 @@ namespace WebApi.Controllers;
 [Produces(MediaTypeNames.Application.Json)]
 public class WeatherForecastController : ControllerBase
 {
-    private static readonly string[] Summaries = new[]
-    {
-        "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-    };
-
     private readonly ILogger<WeatherForecastController> _logger;
+    private readonly IWeatherForecastService _service;
 
-    public WeatherForecastController(ILogger<WeatherForecastController> logger)
+    /// <summary>
+    /// Initializes a new instance of WeatherForecastController class
+    /// </summary>
+    /// <param name="logger"></param>
+    /// <param name="service"></param>
+    public WeatherForecastController(
+        ILogger<WeatherForecastController> logger,
+        IWeatherForecastService service
+    )
     {
+
         _logger = logger;
+        _service = service;
     }
 
     /// <summary>
@@ -37,15 +44,29 @@ public class WeatherForecastController : ControllerBase
     [HttpGet(Name = "getWeatherForecasts")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<WeatherForecastDto>))]
     [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(ProblemDetails))]
-    public IEnumerable<WeatherForecastDto> Get()
+    public async Task<IActionResult> GetWeatherForecastsAsync()
     {
-        return Enumerable.Range(1, 5).Select(index => new WeatherForecastDto
+        var url = $"{HttpContext.Request.Path}{HttpContext.Request.QueryString.ToString()}";
+        _logger.LogInformation(url);
+
+        try
         {
-            Date = DateTime.Now.AddDays(index),
-            TemperatureC = Random.Shared.Next(-20, 55),
-            Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-        })
-        .ToArray();
+            var result = await _service.GetWeatherForecastsAsync();
+            return Ok(result);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex.Message);
+            var response = new ProblemDetails
+            {
+                Type = "about:blank",
+                Title = "Unhandled error occurred",
+                Status = StatusCodes.Status500InternalServerError,
+                Detail = ex.Message,
+                Instance = url,
+            };
+            return StatusCode(StatusCodes.Status500InternalServerError, response);
+        }
     }
 }
 
