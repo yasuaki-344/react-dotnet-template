@@ -3,7 +3,7 @@ using ApplicationCore.Interfaces;
 using Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
-public class WeatherForecastRepository:IWeatherForecastRepository
+public class WeatherForecastRepository : IWeatherForecastRepository
 {
     private readonly ApplicationDbContext _context;
 
