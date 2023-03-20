@@ -3,7 +3,10 @@ using System.ComponentModel;
 using System.IO;
 using System.Reflection;
 using ApplicationCore.Entities;
+using ApplicationCore.Interfaces;
+using ApplicationCore.Mapper;
 using ApplicationCore.Services;
+using Infrastructure;
 using Infrastructure.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -15,15 +18,16 @@ using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 {
-    // Add services to the container.
-    var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-    if (builder.Environment.IsDevelopment())
+    var configuration = builder.Configuration;
+    // Database setting
+    builder.Services.AddDbContext<ApplicationDbContext>(options =>
     {
-        builder.Services.AddDbContext<ApplicationDbContext>(options =>
-            options.UseSqlite(connectionString));
-    }
-    builder.Services.AddIdentity<ApplicationUser, ApplicationRole>()
-        .AddEntityFrameworkStores<ApplicationDbContext>();
+        options.UseNpgsql(configuration.GetConnectionString("DbContext"));
+    });
+
+    // Add services to the container.
+    builder.Services.AddScoped<IWeatherForecastRepository, WeatherForecastRepository>();
+    builder.Services.AddScoped<IWeatherForecastService, WeatherForecastService>();
 
     // Auto mapping setting
     builder.Services.AddAutoMapper(cfg => cfg.AddProfile<AutoMapping>());
@@ -84,7 +88,7 @@ var app = builder.Build();
     using (var scope = app.Services.CreateScope())
     {
         var services = scope.ServiceProvider;
-        await DbInitializer.SeedAsync(services);
+        DbInitializer.Seed(services);
     }
 }
 

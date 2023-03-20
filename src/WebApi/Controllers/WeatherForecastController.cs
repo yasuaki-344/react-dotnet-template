@@ -32,10 +32,10 @@ namespace WebApi.Controllers
         /// <response code="200">Returns weather forecast</response>
         [HttpGet]
         [Route("/v1/weatherforecast")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(WeatherForecast))]
-        public IEnumerable<WeatherForecast> Get()
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(WeatherForecastDto))]
+        public IEnumerable<WeatherForecastDto> Get()
         {
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            return Enumerable.Range(1, 5).Select(index => new WeatherForecastDto
             {
                 Date = DateTime.Now.AddDays(index),
                 TemperatureC = Random.Shared.Next(-20, 55),
