@@ -1,7 +1,7 @@
 ﻿using ApplicationCore.Entities;
+using Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Infrastructure;
 
 namespace Infrastructure.Data
 {
