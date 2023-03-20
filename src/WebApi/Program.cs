@@ -10,6 +10,7 @@ using Infrastructure;
 using Infrastructure.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -35,7 +36,17 @@ var builder = WebApplication.CreateBuilder(args);
     builder.Services.AddControllers();
     // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
     builder.Services.AddEndpointsApiExplorer();
-    builder.Services.AddApiVersioning();
+    builder.Services.AddApiVersioning(setup =>
+    {
+        setup.DefaultApiVersion = new ApiVersion(1, 0);
+        setup.AssumeDefaultVersionWhenUnspecified = true;
+        setup.ReportApiVersions = true;
+    });
+    builder.Services.AddVersionedApiExplorer(setup =>
+    {
+        setup.GroupNameFormat = "'v'V";
+        setup.SubstituteApiVersionInUrl = true;
+    });
     builder.Services.AddSwaggerGen(options =>
     {
         options.SwaggerDoc("v1", new OpenApiInfo
@@ -43,7 +54,7 @@ var builder = WebApplication.CreateBuilder(args);
             Version = "v1",
             Title = "Sample API",
             Description = "This is just sample",
-            TermsOfService = new Uri("https://example.com/tems"),
+            TermsOfService = new Uri("https://example.com/terms"),
             Contact = new OpenApiContact
             {
                 Name = "Example Contact",
