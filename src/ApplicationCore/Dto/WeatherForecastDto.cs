@@ -1,9 +1,8 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace ApplicationCore.Dto
 {
-    public class WeatherForecast
+    public class WeatherForecastDto
     {
         [Required]
         public DateTime Date { get; set; }

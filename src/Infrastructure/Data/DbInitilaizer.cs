@@ -1,5 +1,5 @@
 ﻿using ApplicationCore.Entities;
-using Microsoft.AspNetCore.Identity;
+using Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -7,41 +7,29 @@ namespace Infrastructure.Data
 {
     public static class DbInitializer
     {
-        public static async Task SeedAsync(IServiceProvider serviceProvider)
+        public static void Seed(IServiceProvider serviceProvider)
         {
-            using (var context = new ApplicationDbContext(
-                serviceProvider.GetRequiredService<DbContextOptions<ApplicationDbContext>>()
-            ))
+            var service = serviceProvider.GetRequiredService<DbContextOptions<ApplicationDbContext>>();
+            using (var context = new ApplicationDbContext(service))
             {
                 context.Database.EnsureCreated();
-                var roleManager = serviceProvider.GetRequiredService<RoleManager<ApplicationRole>>();
-                if (roleManager is not null)
-                {
-                    var roles = new string[] { "admin", "owner", "user" };
-                    foreach (string role in roles)
-                    {
-                        var roleExist = await roleManager.RoleExistsAsync(role);
-                        if (!roleExist)
-                        {
-                            await roleManager.CreateAsync(new ApplicationRole { Name = role });
-                        }
-                    }
-                }
 
-                var userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
-                if (userManager is not null)
+                if (!context.WeatherForecasts.Any())
                 {
-                    var newUser = new ApplicationUser
+                    var summaries = new[]
                     {
-                        UserName = "exampleUser",
-                        Email = "example@example.com",
+                        "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
                     };
-                    var user = await userManager.FindByEmailAsync(newUser.Email);
-                    if (user is null)
+
+                    // context.WeatherForecasts.AddRange();
+                    var entities = Enumerable.Range(1, 5).Select(index => new WeatherForecast
                     {
-                        await userManager.CreateAsync(newUser);
-                        await userManager.AddToRoleAsync(newUser, "admin");
-                    }
+                        Date = DateTime.Now.AddDays(index),
+                        TemperatureC = Random.Shared.Next(-20, 55),
+                        Summary = summaries[Random.Shared.Next(summaries.Length)]
+                    });
+                    context.AddRange(entities);
+                    context.SaveChanges();
                 }
             }
         }

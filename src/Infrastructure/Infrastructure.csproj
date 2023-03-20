@@ -4,6 +4,10 @@
     <ProjectReference Include="..\ApplicationCore\ApplicationCore.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.3" />
+  </ItemGroup>
+
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>

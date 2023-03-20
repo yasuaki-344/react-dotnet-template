@@ -1,0 +1,41 @@
+name: .NET CI
+
+on:
+  push:
+    branches: [ main ]
+
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  # バックエンドアプリのビルドとテスト
+  build:
+    runs-on: ubuntu-latest
+    name: Build and test Web API application
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: "6.0.x"
+    - name: Restore nuget package cache
+      uses: actions/cache@v3
+      id: nuget-cache
+      with:
+        path: ~/.nuget/packages
+        key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
+    - name: Restore nuget package
+      run: |
+        dotnet restore --use-lock-file --locked-mode react-dotnet-template.sln
+    - name: Install dotnet-format
+      run: |
+        dotnet tool install -g dotnet-format
+    - name: Check source format
+      run: |
+        dotnet format --verify-no-changes react-dotnet-template.sln
+    - name: Build
+      run: dotnet build --no-restore
+    - name: Test
+      run: dotnet test --no-build --verbosity normal

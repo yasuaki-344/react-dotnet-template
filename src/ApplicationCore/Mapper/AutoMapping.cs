@@ -2,7 +2,7 @@
 using ApplicationCore.Entities;
 using AutoMapper;
 
-namespace ApplicationCore.Services
+namespace ApplicationCore.Mapper
 {
     public class AutoMapping : Profile
     {
@@ -11,7 +11,7 @@ namespace ApplicationCore.Services
         /// </summary>
         public AutoMapping()
         {
-            CreateMap<ApplicationUser, UserDto>();
+            CreateMap<WeatherForecast, WeatherForecastDto>();
         }
     }
 }
