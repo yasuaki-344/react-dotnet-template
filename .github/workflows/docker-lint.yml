@@ -1,0 +1,22 @@
+name: Docker Lint CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - uses: hadolint/hadolint-action@v3.1.0
+      with:
+        dockerfile: ./docker/web-api/Dockerfile
+    - uses: hadolint/hadolint-action@v3.1.0
+      with:
+        dockerfile: ./docker/client-app/Dockerfile

@@ -1,0 +1,17 @@
+services:
+  database:
+    image: postgres:14-alpine
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: mysecretpassword
+      POSTGRES_USER: postgres
+      POSTGRES_DB: postgres
+    volumes:
+      - ./docker/database/initdb:/docker-entrypoint-initdb.d
+      - postgres-data-volume:/var/lib/postgresql/data:rw
+    restart: always
+volumes:
+  postgres-data-volume:
+    name: postgres-data
+    driver: local

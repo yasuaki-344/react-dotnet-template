@@ -1,12 +1,12 @@
 # build environment
-FROM node:16-alpine3.14 AS build
+FROM node:18-alpine3.16 AS build
 
 WORKDIR /app
-COPY package.json ./
-COPY package-lock.json ./
+COPY ./src/ClientApp/package.json ./
+COPY ./src/ClientApp/package-lock.json ./
 RUN npm i
 
-COPY . ./
+COPY /src/ClientApp ./
 RUN npm run build
 
 # runtime envrionment
