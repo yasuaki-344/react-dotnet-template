@@ -1,20 +1,27 @@
 {
   "name": "@react-dotnet-template/application-core",
   "version": "1.0.0",
+  "private": true,
   "type": "module",
   "files": [
     "dist"
   ],
   "main": "./dist/application-core.umd.cjs",
   "module": "./dist/application-core.js",
-  "types": "./index.d.ts",
+  "types": "./dist/main.d.ts",
   "exports": {
-    "types": "./index.d.ts",
+    "types": "./dist/main.d.ts",
     "import": "./dist/application-core.js",
     "require": "./dist/application-core.umd.cjs"
   },
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build"
+    "build": "tsc && vite build",
+    "start": "concurrently \"tsc --watch\" \"vite build --watch\"",
+    "lint": "eslint --ext .tsx,.ts lib/",
+    "format": "prettier --write ./lib/**/*.{js,jsx,ts,tsx}"
+  },
+  "devDependencies": {
+    "vite-plugin-dts": "^2.1.0"
   }
 }
