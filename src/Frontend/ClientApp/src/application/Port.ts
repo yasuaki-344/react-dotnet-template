@@ -10,5 +10,5 @@ export interface CountService {
 }
 
 export interface WeatherForecastService {
-  getWeatherForecasts: () => WeatherForecastDto[];
+  getWeatherForecasts: () => Promise<WeatherForecastDto[]>;
 }
