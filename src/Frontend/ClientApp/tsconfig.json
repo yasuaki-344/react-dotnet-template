@@ -17,6 +17,6 @@
     "jsx": "react-jsx",
     "composite": true
   },
-  "include": ["src"],
+  "include": ["src", "../ApplicationCore/lib/mapper", "../ApplicationCore/lib/api-gateways"],
   "references": [{ "path": "./tsconfig.node.json" }, { "path": "../ApplicationCore" }]
 }
