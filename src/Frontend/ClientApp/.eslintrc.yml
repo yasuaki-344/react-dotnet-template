@@ -15,6 +15,7 @@ plugins:
   - react
 rules:
   react/react-in-jsx-scope: off
+  "@typescript-eslint/triple-slash-reference": off
 ignorePatterns:
   - "vite.config.ts"
 settings:
