@@ -1,13 +1,20 @@
-import { WeatherForecastApi } from "../api-gateways";
+import { type WeatherForecast, WeatherForecastApi } from "../api-gateways";
 import type { WeatherForecastDto } from "../domain/WeatherForecastDto";
 
 export const useApi = (): any => {
   const weatherForecastApi = new WeatherForecastApi();
 
   const getWeatherForecasts = async (): Promise<WeatherForecastDto[]> => {
-    await weatherForecastApi.getWeatherForecasts();
-    // const entities = await weatherForecastApi.getWeatherForecasts();
-    throw new Error("not implemented yet");
+    const entities = await weatherForecastApi.getWeatherForecasts();
+    return entities.map((e: WeatherForecast) => {
+      const x: WeatherForecastDto = {
+        date: e.date,
+        temperatureC: e.temperatureC,
+        temperatureF: e.temperatureF,
+        summary: e.summary,
+      };
+      return x;
+    });
   };
 
   return { getWeatherForecasts };
