@@ -1,0 +1,19 @@
+{
+  "$schema": "./node_modules/@openapitools/openapi-generator-cli/config.schema.json",
+  "spaces": 2,
+  "generator-cli": {
+    "version": "6.0.0",
+    "generators": {
+      "v1.0": {
+        "generatorName": "typescript-fetch",
+        "output": "./src/Frontend/ClientApp/src/api-gateways",
+        "inputSpec": "http://localhost:5000/swagger/v1/swagger.yaml",
+        "additionalProperties": {
+          "modelPropertyNaming": "camelCase",
+          "supportsES6": true,
+          "withInterfaces": true
+        }
+      }
+    }
+  }
+}
