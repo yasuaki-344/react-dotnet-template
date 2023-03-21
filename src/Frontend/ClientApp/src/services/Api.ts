@@ -7,7 +7,7 @@ import type { WeatherForecastDto } from "../domain/WeatherForecastDto";
 
 export const useApi = (): any => {
   const configuration = new Configuration({
-    basePath: "http://localhost:5000",
+    basePath: "",
   });
 
   const weatherForecastApi = new WeatherForecastApi(configuration);
