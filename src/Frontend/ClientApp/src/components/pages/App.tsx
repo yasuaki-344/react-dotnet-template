@@ -1,9 +1,11 @@
-import { useState } from "react";
 import reactLogo from "../../assets/react.svg";
+import { useCount } from "../../services/CountAdapter";
+import { useCountStorage } from "../../services/StorageAdapter";
 import "./App.css";
 
 const App = (): JSX.Element => {
-  const [count, setCount] = useState(0);
+  const { count } = useCountStorage();
+  const { updateCount } = useCount();
 
   return (
     <div className="App">
@@ -19,7 +21,7 @@ const App = (): JSX.Element => {
       <div className="card">
         <button
           onClick={() => {
-            setCount((count) => count + 1);
+            updateCount(count + 1);
           }}
         >
           count is {count}
