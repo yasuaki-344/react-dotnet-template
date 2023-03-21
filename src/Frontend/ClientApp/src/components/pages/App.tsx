@@ -1,11 +1,13 @@
 import reactLogo from "../../assets/react.svg";
 import { useCount } from "../../services/CountAdapter";
 import { useCountStorage } from "../../services/StorageAdapter";
+import { useWeatherForecast } from "../../services/WeatherForecastAdapter";
 import "./App.css";
 
 const App = (): JSX.Element => {
   const { count } = useCountStorage();
   const { updateCount } = useCount();
+  const { getWeatherForecasts } = useWeatherForecast();
 
   return (
     <div className="App">
@@ -22,6 +24,13 @@ const App = (): JSX.Element => {
         <button
           onClick={() => {
             updateCount(count + 1);
+            getWeatherForecasts()
+              .then((result) => {
+                console.log({ result });
+              })
+              .catch((error) => {
+                console.error(error);
+              });
           }}
         >
           count is {count}

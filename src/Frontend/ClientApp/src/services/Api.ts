@@ -1,8 +1,16 @@
-import { type WeatherForecast, WeatherForecastApi } from "../api-gateways";
+import {
+  type WeatherForecast,
+  WeatherForecastApi,
+  Configuration,
+} from "../api-gateways";
 import type { WeatherForecastDto } from "../domain/WeatherForecastDto";
 
 export const useApi = (): any => {
-  const weatherForecastApi = new WeatherForecastApi();
+  const configuration = new Configuration({
+    basePath: "http://localhost:5000",
+  });
+
+  const weatherForecastApi = new WeatherForecastApi(configuration);
 
   const getWeatherForecasts = async (): Promise<WeatherForecastDto[]> => {
     const entities = await weatherForecastApi.getWeatherForecasts();
