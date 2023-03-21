@@ -12,6 +12,7 @@
   "private": true,
   "workspaces": [
     "ApplicationCore",
+    "Infrastructure",
     "ClientApp"
   ],
   "dependencies": {
