@@ -4,6 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "npm-run-all -p start:*",
+    "start:application-core": "npm start -w ApplicationCore",
+    "start:infrastructure": "npm start -w Infrastructure",
+    "start:client-app": "npm start -w ClientApp",
     "build": "npm run build --workspaces --if-present",
     "test": "npm run test --workspaces --if-present",
     "lint": "npm run lint --workspaces",
