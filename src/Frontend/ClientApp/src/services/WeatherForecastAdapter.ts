@@ -1,5 +1,6 @@
 import type { WeatherForecastService } from "../application/Port";
+import { WeatherForecastUseCase } from "../application/WeatherForecastUseCase";
 
 export const useWeatherForecast = (): WeatherForecastService => {
-  throw new Error("not implemented");
+  return WeatherForecastUseCase();
 };
