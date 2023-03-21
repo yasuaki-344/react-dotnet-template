@@ -28,9 +28,9 @@ jobs:
       run: npm ci
     - name: Check dependency module security
       run: npm audit --audit-level=high --omit=dev
-    - name: Check source format
-      run: npm run lint
     - name: Build
       run: npm run build
+    - name: Check source format
+      run: npm run lint
     - name: Test
       run: npm test
