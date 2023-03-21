@@ -2,8 +2,8 @@ import {
   Configuration,
   WeatherForecastApi,
   type WeatherForecast,
+  type WeatherForecastDto,
 } from "@react-dotnet-template/application-core";
-import type { WeatherForecastDto } from "../domain/WeatherForecastDto";
 import { mapper } from "@react-dotnet-template/application-core";
 
 export const useApi = (): any => {
