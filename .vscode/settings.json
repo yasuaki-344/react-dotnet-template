@@ -1,6 +1,7 @@
 {
   "eslint.workingDirectories": [
     "./src/Frontend",
+    "./src/Frontend/ApplicationCore",
     "./src/Frontend/ClientApp",
   ],
 }

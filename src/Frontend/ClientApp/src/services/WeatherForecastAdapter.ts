@@ -1,6 +1,6 @@
-import type { WeatherForecastService } from "../application/Port";
-import { WeatherForecastUseCase } from "../application/WeatherForecastUseCase";
-import { useApi } from "./Api";
+import type { WeatherForecastService } from "@react-dotnet-template/application-core";
+import { WeatherForecastUseCase } from "@react-dotnet-template/application-core";
+import { useApi } from "@react-dotnet-template/infrastructure";
 
 export const useWeatherForecast = (): WeatherForecastService => {
   const { getWeatherForecasts } = useApi();

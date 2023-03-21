@@ -1,7 +1,7 @@
 import { createMap, createMapper } from "@automapper/core";
 import { pojos, PojosMetadataMap } from "@automapper/pojos";
 import { type WeatherForecast } from "../api-gateways";
-import { type WeatherForecastDto } from "../domain/WeatherForecastDto";
+import { type WeatherForecastDto } from "@react-dotnet-template/application-core";
 
 // entity mete data
 PojosMetadataMap.create<WeatherForecast>("WeatherForecast", {

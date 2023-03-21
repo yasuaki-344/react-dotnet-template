@@ -1,0 +1,33 @@
+{
+  "name": "@react-dotnet-template/infrastructure",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/infrastructure.umd.cjs",
+  "module": "./dist/infrastructure.js",
+  "types": "./dist/main.d.ts",
+  "exports": {
+    "types": "./dist/main.d.ts",
+    "import": "./dist/infrastructure.js",
+    "require": "./dist/infrastructure.umd.cjs"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "start": "concurrently \"tsc --watch\" \"vite build --watch\"",
+    "lint": "eslint --ext .tsx,.ts lib/",
+    "format": "prettier --write ./lib/**/*.{js,jsx,ts,tsx}"
+  },
+  "devDependencies": {
+    "concurrently": "^7.6.0",
+    "vite-plugin-dts": "^2.1.0"
+  },
+  "dependencies": {
+    "@automapper/core": "^8.7.7",
+    "@automapper/pojos": "^8.7.7",
+    "@react-dotnet-template/application-core": "^1.0.0"
+  }
+}

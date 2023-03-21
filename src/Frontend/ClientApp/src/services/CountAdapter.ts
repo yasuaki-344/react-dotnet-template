@@ -1,5 +1,5 @@
-import { CountUseCase } from "../application/CountUseCase";
-import type { CountService } from "../application/Port";
+import { CountUseCase } from "@react-dotnet-template/application-core";
+import type { CountService } from "@react-dotnet-template/application-core";
 import { useCountStorage } from "./StorageAdapter";
 
 export const useCount = (): CountService => {
