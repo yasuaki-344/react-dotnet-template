@@ -6,7 +6,7 @@
     "generators": {
       "v1.0": {
         "generatorName": "typescript-fetch",
-        "output": "./src/Frontend/ClientApp/src/api-gateways",
+        "output": "./frontend/ClientApp/src/api-gateways",
         "inputSpec": "http://localhost:5000/swagger/v1/swagger.yaml",
         "additionalProperties": {
           "modelPropertyNaming": "camelCase",
