@@ -21,6 +21,14 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
         cache-dependency-path: './frontend/src/package-lock.json'
+    - name: Restore node modules cache
+      uses: actions/cache@v3
+      id: node-module-cache
+      with:
+        path: '**/node_modules'
+        key: ${{ runner.os }}-node-${{ matrix.node-version }}-${{ hashFiles('./frontend/src/packages.lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-${{ matrix.node-version }}-${{ hashFiles('./frontend/src/packages.lock.json') }}
     - name: Restore dependencies
       run: npm ci
     - name: Check dependency module security
