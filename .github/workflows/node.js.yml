@@ -1,9 +1,6 @@
 name: Node.js CI
 
 on:
-  push:
-    branches: [ main ]
-
   pull_request:
     branches: [ main ]
 
@@ -12,10 +9,10 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./src/Frontend
+        working-directory: ./frontend/src
     strategy:
       matrix:
-        node-version: [18.x]
+        node-version: [22.x]
     steps:
     - uses: actions/checkout@v3
     - name: Use Node.js ${{ matrix.node-version }}
@@ -23,7 +20,15 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-        cache-dependency-path: './src/Frontend/package-lock.json'
+        cache-dependency-path: './frontend/src/package-lock.json'
+    - name: Restore node modules cache
+      uses: actions/cache@v3
+      id: node-module-cache
+      with:
+        path: '**/node_modules'
+        key: ${{ runner.os }}-node-${{ matrix.node-version }}-${{ hashFiles('./frontend/src/packages.lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-${{ matrix.node-version }}-${{ hashFiles('./frontend/src/packages.lock.json') }}
     - name: Restore dependencies
       run: npm ci
     - name: Check dependency module security

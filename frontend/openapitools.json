@@ -4,9 +4,9 @@
   "generator-cli": {
     "version": "6.0.0",
     "generators": {
-      "v1.0": {
+      "api-v1.0": {
         "generatorName": "typescript-fetch",
-        "output": "./src/Frontend/ClientApp/src/api-gateways",
+        "output": "./src/Infrastructure/lib/api-gateways",
         "inputSpec": "http://localhost:5000/swagger/v1/swagger.yaml",
         "additionalProperties": {
           "modelPropertyNaming": "camelCase",
