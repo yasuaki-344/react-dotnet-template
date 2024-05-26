@@ -11,6 +11,9 @@ jobs:
   # バックエンドアプリのビルドとテスト
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./backend
     name: Build and test Web API application
     steps:
     - uses: actions/checkout@v3
