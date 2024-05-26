@@ -18,6 +18,6 @@
     "declarationDir": "./types",
     "composite": true
   },
-  "include": ["./lib"],
+  "include": ["./lib", "./vite.config.ts"],
   "references": [{ "path": "../ApplicationCore" }]
 }
