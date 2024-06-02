@@ -1,18 +1,11 @@
 """Endpoints modules."""
 from typing import List
 from fastapi import APIRouter
-from pydantic import BaseModel
 from datetime import datetime
 from dependency_injector.wiring import inject
+from dto import WeatherForecast
 
 router = APIRouter(tags=["WeatherForecast"])
-
-
-class WeatherForecast(BaseModel):
-    date: datetime
-    temperature_c: int
-    temperature_f: int
-    summary: str
 
 
 @router.get("/api/v1/weather-forecasts", response_model=List[WeatherForecast])
