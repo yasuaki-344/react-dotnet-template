@@ -9,7 +9,7 @@ def create_app() -> FastAPI:
 
     app = FastAPI()
     app.container = container  # type: ignore
-    app.include_router(endpoints.router)
+    app.include_router(endpoints.router, prefix="/api/v1")
     return app
 
 
