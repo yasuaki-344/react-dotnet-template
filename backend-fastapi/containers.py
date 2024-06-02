@@ -6,6 +6,6 @@ import services
 class Container(containers.DeclarativeContainer):
     wiring_config = containers.WiringConfiguration(modules=["endpoints"])
 
-    my_service = providers.Factory(
-        services.MyService
+    weather_forecast_service = providers.Factory(
+        services.WeatherForecastService
     )
