@@ -23,6 +23,13 @@ services:
       - frontend
       - backend
     restart: always
+  fastapi:
+    build:
+      context: .
+      dockerfile: ./docker/fast-api/Dockerfile
+    ports:
+      - 8080:80
+    restart: always
   database:
     image: postgres:13-alpine
     environment:
